@@ -1,7 +1,7 @@
-CC       ?= clang
+CC       ?= cc
+AR       ?= ar
 CFLAGS   ?= -Wall -Werror -Wextra -Wpedantic -g -O0
 CPPFLAGS ?= -Iinclude
-AR		 ?= ar
 
 BUILD := build
 
@@ -10,8 +10,7 @@ OBJS := $(SRCS:src/%.c=$(BUILD)/%.o)
 DEPS := $(OBJS:.o=.d)
 
 .PHONY: all clean
-
-all: $(BUILD)/libdsaref.a 
+all: $(BUILD)/libdsaref.a
 
 $(BUILD):
 	mkdir -p $@
@@ -19,8 +18,8 @@ $(BUILD):
 $(BUILD)/libdsaref.a: $(OBJS) | $(BUILD)
 	$(AR) rcs $@ $^
 
-$(OBJS): $(SRCS) | $(BUILD)
-	$(CC) $(CPPFLAGS) $(CFLAGS) -MMD -MP -MF $(DEPS) -MT $@ -c $^ -o $@
+$(BUILD)/%.o: src/%.c | $(BUILD)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -MMD -MP -MF $(@:.o=.d) -MT $@ -c $< -o $@
 
 -include $(DEPS)
 

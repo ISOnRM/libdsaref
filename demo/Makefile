@@ -17,10 +17,10 @@ all: $(BINS)
 $(BUILD):
 	mkdir -p $@
 
-$(OBJS): $(SRCS) | $(BUILD)
-	$(CC) $(CPPFLAGS) $(CFLAGS) -MMD -MP -MF $(DEPS) -c $< -o $@
+$(BUILD)/%.o: %.c | $(BUILD)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -MMD -MP -MF $(@:.o=.d) -MT $@ -c $< -o $@
 
-$(BINS): $(OBJS)
+$(BUILD)/%: $(BUILD)/%.o
 	$(CC) $(CFLAGS) $< $(LDFLAGS) $(LDLIBS) -o $@
 
 -include $(DEPS)
