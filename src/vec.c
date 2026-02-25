@@ -94,8 +94,8 @@ int vec_push(vec *v, const void *elem) {
         }
         if (vec_realloc(v, new_cap) != 0) return -1;
     }
-
-    memcpy(vec_at(v, v->len), elem, v->elem_size);
+    void *dst = (char*)v->data + v->len * v->elem_size;
+    memcpy(dst, elem, v->elem_size);
     v->len++;
     return 0;
 }
@@ -106,7 +106,10 @@ int vec_pop(vec *v, void *out) {
     if (v->len == 0) { errno = ENOENT; return -1; }
 
     v->len--;
-    if (out) memcpy(out, vec_at(v, v->len), v->elem_size);
+    if (out) {
+        void *src = (char*)v->data + v->len * v->elem_size;
+        memcpy(out, src, v->elem_size);
+    }
     return 0;
 }
 
