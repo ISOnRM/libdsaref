@@ -3,6 +3,7 @@
 #include <stddef.h>
 #include <inttypes.h>
 
+#define STACK_FIELDS_W_MACROS
 #include "dsaref/stack.h"
 #include "dsaref/parse_any.h"
 #include "dsaref/die.h"
@@ -33,7 +34,7 @@ int main(int argc, char **argv) {
     if (stack_peek(&s, &peek) != 0) DIE1("stack_peek");
     printf("\n\nPeek: %lf\n\n\n", peek);
 
-    while (s.count != 0) {
+    while (!stack_empty(&s)) {
         if (stack_pop(&s, NULL) != 0) DIE1("stack_pop");
         printf("Popped. Count=%zu\n", s.count);
     }

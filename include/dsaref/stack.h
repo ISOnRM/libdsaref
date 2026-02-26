@@ -20,5 +20,12 @@ int stack_push(stack *s, const void *elem); // 0 or -1
 int stack_pop(stack *s, void *out);         // out can be NULL, 0 or -1
 int stack_peek(const stack *s, void *out);  // 0 or -1
 
+/* fields */
+#ifdef STACK_FIELDS_W_MACROS
+#define stack_empty(v) (((v)->count == 0) ? 1 : 0)
+#else
+int stack_empty(const stack *s); // 1/0 or -1
+#endif
+
 
 #endif // STACK_H

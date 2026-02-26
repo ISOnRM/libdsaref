@@ -41,3 +41,8 @@ int stack_peek(const stack *s, void *out) {
     memcpy(out, src, s->v.elem_size);
     return 0;
 }
+
+int stack_empty(const stack *s) {
+    if (!s) { errno = EINVAL; return -1; }
+    return (s->count == 0) ? 1 : 0;
+}
