@@ -4,6 +4,8 @@
 #include <stddef.h>
 #include <inttypes.h>
 
+#define VEC_FIELDS_W_MACROS
+
 #include "dsaref/vec.h"
 #include "dsaref/parse_any.h"
 #include "dsaref/die.h"
@@ -44,7 +46,7 @@ int main(int argc, char **argv) {
     printf("\n\nFront: %"PRIdMAX"\nBack: %"PRIdMAX"\n\n\n",
            *(intmax_t*)(f), *(intmax_t*)(b));
 
-    while (v.len != 0) {
+    while (!vec_empty(&v)) {
         if (vec_pop(&v, NULL) != 0) DIE1("vec_pop");
         printf("Popped. Len=%zu\n", v.len);
     }

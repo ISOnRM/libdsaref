@@ -113,3 +113,7 @@ int vec_pop(vec *v, void *out) {
     return 0;
 }
 
+int vec_empty(const vec *v) {
+    if (!v) { errno = EINVAL; return -1; }
+    return (v->len == 0) ? 1 : 0; // if empty => 1
+}
