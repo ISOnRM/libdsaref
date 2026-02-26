@@ -1,7 +1,10 @@
-## This is my personal DSA refference library (CLRS)
+## This is my personal DSA reference library (CLRS)
 
-```bash
+```sh
 git clone git@github.com:ISOnRM/libdsaref
 cd libdsaref
-make && pushd demo && make && popd
+make
+pushd demo
+make
+popd
 ```
