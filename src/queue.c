@@ -8,6 +8,7 @@
 int queue_init(queue *q, size_t elem_size, size_t cap) {
     if (!q || elem_size == 0 || cap == 0) { errno = EINVAL; return -1; }
     if (vec_init(&q->v, elem_size) != 0) return -1;
+    if (vec_reserve(&q->v, cap) != 0) return -1;
     q->count = q->head = q->tail = 0;
     q->cap = cap;
     return 0; 
