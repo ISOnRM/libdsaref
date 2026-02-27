@@ -14,6 +14,13 @@ static void print_help(const char *prog_name) {
     fprintf(stderr, "Usage: %s <queue's cap> <double values...>\n", prog_name);
 }
 
+#define queue_fields_dump(q) \
+printf("Count: %zu\n"        \
+       "Cap: %zu\n"          \
+       "Head: %zu\n"         \
+       "Tail: %zu\n",        \
+       (q)->count, (q)->cap, (q)->head, (q)->tail)
+
 int main(int argc, char **argv) {
     if (argc < 3) { print_help(argv[0]); return 1;}
 
@@ -29,16 +36,19 @@ int main(int argc, char **argv) {
     for (int i = 2; i < argc; ++i) {
         if (parse_double(argv[i], &t) != 0) DIE2("parse_double", argv[i]);
         if (queue_enq(&q, &t) != 0) DIE3("queue_enq", t, "%lf");
-        printf("Enqueued: %lf. Count=%zu\n", t, q.count);
+        printf("Enqueued: %lf\n", t);
+        queue_fields_dump(&q);
     }
 
-    printf("\nHead: %zu\nTail: %zu\nCount: %zu\n\n",
-           q.head, q.tail, q.count);
+    printf("\n");
+    queue_fields_dump(&q);
+    printf("\n\n");
 
     double o;
     while (!queue_empty(&q)) {
         if (queue_deq(&q, &o) != 0) DIE1("queue_deq");
-        printf("Dequeued: %lf. Count=%zu\n", o, q.count);
+        printf("Dequeued: %lf\n", o);
+        queue_fields_dump(&q);
     }
     
     queue_destroy(&q);
