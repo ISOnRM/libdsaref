@@ -11,7 +11,7 @@
 DEF_PARSE_ANY(double, "%lf")
 
 static void print_help(const char *prog_name) {
-    fprintf(stderr, "Usage: %s <intmax values...>\n", prog_name);
+    fprintf(stderr, "Usage: %s <double values...>\n", prog_name);
 }
 
 int main(int argc, char **argv) {
