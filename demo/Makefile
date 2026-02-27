@@ -1,5 +1,5 @@
 CC       ?= clang
-CFLAGS   ?= -Wall -Werror -Wextra -Wpedantic -g -O0
+CFLAGS   ?= -std=c99 -Wall -Werror -Wextra -Wpedantic -g -O0
 CPPFLAGS ?= -I../include
 LDFLAGS  ?= -L../build
 LDLIBS   ?= -ldsaref

@@ -1,6 +1,6 @@
 CC       ?= cc
 AR       ?= ar
-CFLAGS   ?= -Wall -Werror -Wextra -Wpedantic -g -O0
+CFLAGS   ?= -std=c99 -Wall -Werror -Wextra -Wpedantic -g -O0
 CPPFLAGS ?= -Iinclude
 
 BUILD := build
