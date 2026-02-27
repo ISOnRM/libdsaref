@@ -22,7 +22,7 @@ int stack_peek(const stack *s, void *out);  // 0 or -1
 
 /* fields */
 #ifdef STACK_FIELDS_W_MACROS
-#define stack_empty(v) (((v)->count == 0) ? 1 : 0)
+#define stack_empty(s) (((s)->count == 0) ? 1 : 0)
 #else
 int stack_empty(const stack *s); // 1/0 or -1
 #endif
