@@ -1,4 +1,5 @@
-// stack demo
+/* stack demo */
+
 #include <stdio.h>
 #include <stddef.h>
 #include <inttypes.h>

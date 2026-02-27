@@ -1,4 +1,4 @@
-// vec demo
+/* vec demo */
 
 #include <stdio.h>
 #include <stddef.h>

@@ -1,4 +1,4 @@
-// queue impl
+/* queue impl */
 #include <stddef.h>
 #include <stdlib.h>
 #include <errno.h>

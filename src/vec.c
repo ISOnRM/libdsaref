@@ -1,4 +1,5 @@
-// vec impl
+/* vec impl */
+
 #include <stdlib.h>
 #include <stddef.h>
 #include <errno.h>

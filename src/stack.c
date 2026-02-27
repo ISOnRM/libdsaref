@@ -1,4 +1,4 @@
-// stack impl
+/* stack impl */
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>

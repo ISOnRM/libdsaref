@@ -1,3 +1,5 @@
+/* queue demo */
+
 #include <stdio.h>
 #include <stddef.h>
 #include <inttypes.h>
