@@ -1,4 +1,5 @@
 /* queue impl */
+
 #include <stddef.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -45,8 +46,8 @@ int queue_deq(queue *q, void *out) {
     if (q->count == 0)      { return -1; }
     if (out) {
 //      void *src = (char *)q->v.data + q->head * q->v.elem_size;
-        void *src = vec_ptr(&q->v, q->tail);
-        if (!src)                          return -1;       
+        void *src = vec_ptr(&q->v, q->head);
+        if (!src)             return -1;       
         memcpy(out, src, q->v.elem_size);
     }
 
@@ -57,7 +58,7 @@ int queue_deq(queue *q, void *out) {
 }
 int queue_clear(queue *q) {
     if (!q) { errno = EINVAL; return -1; }
-    q->cap = q->count = q->head = q->tail = 0;
+    q->count = q->head = q->tail = 0;
     q->v.len = 0;
     return 0;
 }
