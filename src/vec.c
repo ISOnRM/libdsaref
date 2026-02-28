@@ -118,3 +118,8 @@ int vec_empty(const vec *v) {
     if (!v) { errno = EINVAL; return -1; }
     return (v->len == 0) ? 1 : 0; // if empty => 1
 }
+
+void *vec_ptr(vec *v, size_t i) {
+    if (!v || i >= v->cap) { errno = EINVAL; return NULL; }
+    return (char*)v->data + i * v->elem_size;
+}

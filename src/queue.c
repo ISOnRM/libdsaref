@@ -30,7 +30,9 @@ int queue_empty(const queue *q) {
 int queue_enq(queue *q, const void *elem) {
     if (!q || !elem) { errno = EINVAL; return -1; }
     if (q->cap == q->count)          { return -1; }
-    void *dst = (char*)q->v.data + q->tail * q->v.elem_size;
+//  void *dst = (char*)q->v.data + q->tail * q->v.elem_size;
+    void *dst = vec_ptr(&q->v, q->tail);
+    if (!dst)                          return -1;       
     memcpy(dst, elem, q->v.elem_size);
     
     q->tail = (q->tail + 1) % q->cap;
@@ -42,7 +44,9 @@ int queue_deq(queue *q, void *out) {
     if (!q) { errno = EINVAL; return -1; }
     if (q->count == 0)      { return -1; }
     if (out) {
-        void *src = (char *)q->v.data + q->head * q->v.elem_size;
+//      void *src = (char *)q->v.data + q->head * q->v.elem_size;
+        void *src = vec_ptr(&q->v, q->tail);
+        if (!src)                          return -1;       
         memcpy(out, src, q->v.elem_size);
     }
 

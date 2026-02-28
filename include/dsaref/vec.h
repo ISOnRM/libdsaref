@@ -36,5 +36,8 @@ void *vec_front(vec *v);                     /* ptr or NULL*  */
 int vec_push(vec *v, const void *elem);      /* 0 or -1 */ 
 int vec_pop(vec *v, void *out);              /* 0 or -1 */ 
 
+/* inteface for other data structures */
+void *vec_ptr(vec *v, size_t i);
+
 
 #endif /* VEC_H */ 
