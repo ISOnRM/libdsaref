@@ -1,5 +1,6 @@
 /* queue impl */
 
+#include <asm-generic/errno-base.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -29,8 +30,8 @@ int queue_empty(const queue *q) {
 
 
 int queue_enq(queue *q, const void *elem) {
-    if (!q || !elem) { errno = EINVAL; return -1; }
-    if (q->cap == q->count)          { return -1; }
+    if (!q || !elem)        { errno = EINVAL; return -1; }
+    if (q->cap == q->count) { errno = ENOSPC; return -1; }
 //  void *dst = (char*)q->v.data + q->tail * q->v.elem_size;
     void *dst = vec_ptr(&q->v, q->tail);
     if (!dst)                          return -1;       
@@ -41,6 +42,7 @@ int queue_enq(queue *q, const void *elem) {
 
     return 0;
 }
+
 int queue_deq(queue *q, void *out) {
     if (!q) { errno = EINVAL; return -1; }
     if (q->count == 0)      { return -1; }
@@ -56,6 +58,7 @@ int queue_deq(queue *q, void *out) {
 
     return 0;
 }
+
 int queue_clear(queue *q) {
     if (!q) { errno = EINVAL; return -1; }
     q->count = q->head = q->tail = 0;
