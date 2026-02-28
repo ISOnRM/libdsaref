@@ -37,8 +37,8 @@ int main(int argc, char **argv) {
     double t;
     for (int i = 2; i < argc; ++i) {
         if (parse_double(argv[i], &t) != 0) DIE2("parse_double", argv[i]);
-        if (queue_enq(&q, &t) != 0) DIE3("queue_enq", t, "%lf");
-        printf("Enqueued: %lf\n", t);
+        if (queue_push_tail(&q, &t) != 0) DIE3("queue_enq", t, "%lf");
+        printf("Push Tail: %lf\n", t);
         queue_fields_dump(&q);
     }
 
@@ -48,8 +48,27 @@ int main(int argc, char **argv) {
 
     double o;
     while (!queue_empty(&q)) {
-        if (queue_deq(&q, &o) != 0) DIE1("queue_deq");
-        printf("Dequeued: %lf\n", o);
+        if (queue_pop_head(&q, &o) != 0) DIE1("queue_deq");
+        printf("Pop Head: %lf\n", o);
+        queue_fields_dump(&q);
+    }
+
+    printf("\nNOW IN REVERSE\n\n");
+
+    for (int i = argc - 1; i >= 2; --i) {
+        if (parse_double(argv[i], &t) != 0) DIE2("parse_double", argv[i]);
+        if (queue_push_head(&q, &t) != 0) DIE3("queue_enq", t, "%lf");
+        printf("Push Head: %lf\n", t);
+        queue_fields_dump(&q);
+    }
+    
+    printf("\n");
+    queue_fields_dump(&q);
+    printf("\n\n");
+
+    while (!queue_empty(&q)) {
+        if (queue_pop_tail(&q, &o) != 0) DIE1("queue_deq");
+        printf("Pop Tail: %lf\n", o);
         queue_fields_dump(&q);
     }
     
