@@ -3,11 +3,15 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <inttypes.h>
+#include <unistd.h>
 
 #define QUEUE_FIELDS_W_MACROS
 #include "dsaref/die.h"
 #include "dsaref/parse_any.h"
 #include "dsaref/queue.h"
+
+#define ANSI_RESET   "\x1b[0m"
+#define ANSI_FG_RED  "\x1b[31m"
 
 DEF_PARSE_ANY(double, "%lf")
 DEF_PARSE_ANY(size_t, "%zu")
@@ -53,7 +57,11 @@ int main(int argc, char **argv) {
         queue_fields_dump(&q);
     }
 
-    printf("\nNOW IN REVERSE\n\n");
+    if (isatty(1)) {
+        printf("\n" ANSI_FG_RED "NOW IN REVERSE\n\n" ANSI_RESET);
+    } else {
+        printf("\nNOW IN REVERSE\n\n");
+    }
 
     for (int i = argc - 1; i >= 2; --i) {
         if (parse_double(argv[i], &t) != 0) DIE2("parse_double", argv[i]);
