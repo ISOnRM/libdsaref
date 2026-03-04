@@ -26,6 +26,9 @@ int queue_pop_tail(queue *q, void *out);         /* 0 or -1 */
 
 int queue_clear(queue *q);                 /* 0 or -1 */ 
 
+int queue_peek_head(queue *q, void *out); /* 0 or -1 */
+int queue_peek_tail(queue *q, void *out); /* 0 or -1 */
+
 /* fields */
 #ifdef QUEUE_FIELDS_W_MACROS
 #define queue_empty(q) (((q)-> count == 0) ? 1 : 0)

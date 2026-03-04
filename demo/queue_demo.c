@@ -47,6 +47,10 @@ int main(int argc, char **argv) {
     }
 
     printf("\n");
+    double peek_tail, peek_head;
+    if (queue_peek_tail(&q, &peek_tail) != 0) DIE1("queue_peek_tail");
+    if (queue_peek_head(&q, &peek_head) != 0) DIE1("queue_peek_head");
+    printf("Head: %lf, Tail: %lf\n", peek_head, peek_tail);
     queue_fields_dump(&q);
     printf("\n\n");
 
@@ -71,6 +75,9 @@ int main(int argc, char **argv) {
     }
     
     printf("\n");
+    if (queue_peek_tail(&q, &peek_tail) != 0) DIE1("queue_peek_tail");
+    if (queue_peek_head(&q, &peek_head) != 0) DIE1("queue_peek_head");
+    printf("Tail: %lf, Head: %lf\n", peek_tail, peek_head);
     queue_fields_dump(&q);
     printf("\n\n");
 

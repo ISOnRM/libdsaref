@@ -1,7 +1,6 @@
 /* queue impl */
 
 #include <asm-generic/errno-base.h>
-#include <endian.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -105,5 +104,24 @@ int queue_clear(queue *q) {
     if (!q) { errno = EINVAL; return -1; }
     q->count = q->head = q->tail = 0;
     q->v.len = 0;
+    return 0;
+}
+
+int queue_peek_head(queue *q, void *out) {
+    if (!q || !out) { errno = EINVAL; return -1; }
+    void *src = vec_ptr(&q->v, q->head);
+    if (!src) return -1;
+    memcpy(out, src, q->v.elem_size);
+    return 0;
+}
+
+
+int queue_peek_tail(queue *q, void *out) {
+    if (!q || !out) { errno = EINVAL; return -1; }
+    size_t i = q->tail;
+    i = previ(i, q->cap);
+    void *src = vec_ptr(&q->v, i);
+    if (!src) return -1;
+    memcpy(out, src, q->v.elem_size);
     return 0;
 }
