@@ -4,9 +4,22 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+#include <inttypes.h>
 #include "dsaref/queue2.h"
 #include "dsaref/stack.h"
 
+
+static int queue2_move_elems(queue2 *q) {
+    if (!q) { errno = EINVAL; return -1; }
+
+    uint8_t tmp[q->s1.v.elem_size];
+
+    while (q->s1.count != 0) {
+        if (stack_pop(&q->s1, tmp) != 0) return -1;
+        if (stack_push(&q->s2, tmp) != 0) return -1;
+    }
+    return 0;
+}
 int queue2_init(queue2 *q, size_t elem_size, size_t cap) {
     if (!q || elem_size == 0 || cap == 0) { errno = EINVAL; return -1; }
     if (stack_init(&q->s1, elem_size) != 0) return -1;
@@ -45,22 +58,18 @@ int queue2_pop_head(queue2 *q, void *out) {
     if (!q) { errno = EINVAL; return -1; }
     if (q->count == 0)      { return -1; }
     if (q->s2.count == 0) {
-        void *t = NULL;
-        while (q->s1.count != 0) {
-            if (stack_pop(&q->s1, t) != 0) return -1;
-            if (stack_push(&q->s2, t) != 0) return -1;
-        }
+        if (queue2_move_elems(q) != 0) return -1;
     }
-    
-    if (out) {
-        if (stack_pop(&q->s2, out) != 0) return -1;
-    }
-    
+    if (stack_pop(&q->s2, out) != 0) return -1;
+    q->count--;
     return 0;
 }
 
 int queue2_peek_head(queue2 *q, void *out) {
     if (!q || !out) { errno = EINVAL; return -1; }
+    if (q->s2.count == 0) {
+        if (queue2_move_elems(q) != 0) return -1;
+    }
     if (stack_peek(&q->s2, out) != 0) return -1;
     return 0;
 
