@@ -9,9 +9,6 @@
 #include "dsaref/parse_any.h"
 #include "dsaref/queue2.h"
 
-#define ANSI_RESET   "\x1b[0m"
-#define ANSI_FG_RED  "\x1b[31m"
-
 DEF_PARSE_ANY(double, "%lf")
 DEF_PARSE_ANY(size_t, "%zu")
 
@@ -48,7 +45,6 @@ int main(int argc, char **argv) {
         printf("Push Tail: %lf\n", t);
         queue2_fields_dump(&q);
     }
-
     printf("\n");
     double peek_head;
     if (queue2_peek_head(&q, &peek_head) != 0) DIE1("queue2_peek_head");

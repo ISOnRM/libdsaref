@@ -17,7 +17,7 @@ int queue2_init(queue2 *q, size_t elem_size, size_t cap); /* 0 or -1 */
 void queue2_destroy(queue2 *q);
 
 
-/* enqueue and dequeue and clear */
+/* elems access and clear */
 int queue2_push_tail(queue2 *q, const void *elem); /* 0 or -1 */ 
 int queue2_pop_head(queue2 *q, void *out);         /* 0 or -1 */ 
 

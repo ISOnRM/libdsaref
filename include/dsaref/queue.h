@@ -17,7 +17,7 @@ typedef struct queue queue;
 int queue_init(queue *q, size_t elem_size, size_t cap); /* 0 or -1 */ 
 void queue_destroy(queue *q);
 
-/* enqueue and dequeue and clear */
+/* elems access and clear */
 int queue_push_tail(queue *q, const void *elem); /* 0 or -1 */ 
 int queue_pop_head(queue *q, void *out);         /* 0 or -1 */ 
 
