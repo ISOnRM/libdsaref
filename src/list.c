@@ -118,6 +118,7 @@ int list_reverse(list *l) {
         prev = curr;
         curr = next;
     }
+    l->nil->next = prev;
     /*
         nil -> e0 -> e1 -> e2 -> nil
         ^      ^

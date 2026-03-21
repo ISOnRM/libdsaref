@@ -42,6 +42,9 @@ int main(int argc, char **argv) {
 
     printf("\n\n");
     list_print(intmax_t, "%" PRIdMAX, l);
+    printf("Inverting the list (list_reverse)\n");
+    if (list_reverse(&l) != 0) DIE1("list_reverse");
+    list_print(intmax_t, "%" PRIdMAX, l);
     printf("\n\n");
 
     while (list_pop_front(&l, &t) == 0) {
