@@ -1,6 +1,5 @@
 /* doubly linked list impl */
 #include "dsaref/dlist.h"
-#include <asm-generic/errno-base.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <stddef.h>

@@ -12,7 +12,7 @@ DEF_PARSE_ANY(intmax_t, "%" SCNdMAX)
 do {                                                       \
     printf("<= nil <=> ");                                 \
     if ((list).nil->next != (list).nil) {                  \
-        dlist_node *curr = (list).nil->next;                \
+        dlist_node *curr = (list).nil->next;               \
         while (curr != (list).nil) {                       \
             printf(fmt " <=> ", *(type*)(curr->value));    \
             curr = curr->next;                             \
